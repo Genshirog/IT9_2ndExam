@@ -79,4 +79,13 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('tasks.index');
     }
+
+    public function status(Request $request,string $id){
+        $validate = $request->validate([
+            'is_completed' => 'boolean'
+        ]);
+        $tasks = Task::findOrFail($id);
+        $tasks->update($validate);
+        return redirect()->route('tasks.index');
+    }
 }
